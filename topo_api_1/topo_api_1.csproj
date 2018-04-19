@@ -17,6 +17,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
-      <None Update="Migrations\**\*.sql" CopyToOutputDirectory="PreserveNewest"/>
+    <None Update="Migrations\**\*.sql" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
