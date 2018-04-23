@@ -18,5 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="Migrations\**\*.sql" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="entrypoint.sh" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
