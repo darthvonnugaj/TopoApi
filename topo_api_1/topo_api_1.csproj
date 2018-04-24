@@ -21,6 +21,9 @@
     <None Update="entrypoint.sh" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\.gitignore">
+      <Link>.gitignore</Link>
+    </Content>
     <Content Include="..\.travis.yml">
       <Link>.travis.yml</Link>
     </Content>

@@ -4,7 +4,7 @@
 export IMAGE_NAME=topoapi
 export IMAGE_VERSION=v1
 
-export AWS_DEFAULT_REGION=eu-central-1b
+export AWS_DEFAULT_REGION=eu-central-1
 export AWS_ECS_CLUSTER_NAME=default
 export AWS_VIRTUAL_HOST=ec2-18-184-119-144.eu-central-1.compute.amazonaws.com
 

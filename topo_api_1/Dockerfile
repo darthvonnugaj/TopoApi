@@ -9,7 +9,12 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet build
 EXPOSE 5000/tcp
+EXPOSE 22
+
+ARG env=local
 ENV ASPNETCORE_URLS http://*:5000
+ENV SERVER $env
+
 RUN chmod 755 ./entrypoint.sh
 #CMD /bin/bash ./entrypoint.sh
 CMD ["./entrypoint.sh"]
