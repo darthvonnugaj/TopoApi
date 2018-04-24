@@ -2,7 +2,7 @@
 
 
 set -e
-run_cmd="dotnet run"
+run_cmd="dotnet run --server.urls https://*:5000"
 
 until dotnet ef database update; do
 >&2 echo "SQL Server is starting up"
