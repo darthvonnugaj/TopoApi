@@ -20,4 +20,15 @@
     <None Update="Migrations\**\*.sql" CopyToOutputDirectory="PreserveNewest" />
     <None Update="entrypoint.sh" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\.travis.yml">
+      <Link>.travis.yml</Link>
+    </Content>
+    <Content Include="..\deploy-envs.sh">
+      <Link>deploy-envs.sh</Link>
+    </Content>
+    <Content Include="..\scripts\build.sh" />
+    <Content Include="..\scripts\deploy.sh" />
+    <Content Include="..\scripts\task-definition.json" />
+  </ItemGroup>
 </Project>
