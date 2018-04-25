@@ -8,8 +8,8 @@ RUN dotnet restore
 # Copy everything else and build
 COPY . ./
 RUN dotnet build
-EXPOSE 5000/tcp
-EXPOSE 22
+EXPOSE 80/tcp
+#EXPOSE 22 #SQL SERVER?
 
 ARG env=local
 ENV ASPNETCORE_URLS http://*:5000
