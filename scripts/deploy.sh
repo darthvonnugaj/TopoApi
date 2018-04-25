@@ -14,16 +14,8 @@ export PATH=$PATH:$HOME/.local/bin # put aws in the path
 # replace environment variables in task-definition
 envsubst < task-definition.json > new-task-definition.json
 
-echo PHASE_1
-export DOCKER_STRING=$(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-echo $DOCKER_STRING
-
 echo PHASE_2
-export DOCKER_STRING2=$($DOCKER_STRING | sed 's|https://||') #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
-echo $DOCKER_STRING2
-
-echo PHASE_2.1
-yes | eval $DOCKER_STRING2
+eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email | sed 's|https://||') #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
 
 echo PHASE_3
 if [ $(aws ecr describe-repositories | jq --arg x $IMAGE_NAME '[.repositories[] | .repositoryName == $x] | any') == "true" ]; then
