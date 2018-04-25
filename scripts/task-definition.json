@@ -3,8 +3,8 @@
   "networkMode": "bridge",
   "containerDefinitions": [
     {
-      "image": "${AWS_ECS_REPO_DOMAIN}/${IMAGE_NAME}:${IMAGE_VERSION}",
       "name": "${IMAGE_NAME}",
+      "image": "${AWS_ECS_REPO_DOMAIN}/${IMAGE_NAME}:${IMAGE_VERSION}",
       "cpu": 128,
       "memory": 256,
       "essential": true,
@@ -20,10 +20,6 @@
         {
           "name": "VIRTUAL_HOST",
           "value": "${AWS_VIRTUAL_HOST}"
-        },
-        {
-          "name": "SERVICESTACK_LICENSE",
-          "value": "${SERVICESTACK_LICENSE}"
         },
         {
           "name": "REDIS_HOST",

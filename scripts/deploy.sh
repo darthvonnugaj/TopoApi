@@ -5,6 +5,7 @@ export AWS_ECS_REPO_DOMAIN=$AWS_ACCOUNT_NUMBER.dkr.ecr.$AWS_DEFAULT_REGION.amazo
 export ECS_SERVICE=$IMAGE_NAME-service
 export ECS_TASK=$IMAGE_NAME-task
 
+echo PHASE_1
 # install dependencies
 sudo apt-get install jq -y #install jq for json parsing
 sudo apt-get install gettext -y 
@@ -28,10 +29,14 @@ fi
 echo PHASE_4
 docker push $AWS_ECS_REPO_DOMAIN/$IMAGE_NAME:$IMAGE_VERSION
 
-aws ecs register-task-definition --cli-input-json file://new-task-definition.json --region $AWS_DEFAULT_REGION > /dev/null # Create a new task revision
+echo PHASE_5
+aws ecs register-task-definition --cli-input-json file://`pwd`/new-task-definition.json --region $AWS_DEFAULT_REGION > /dev/null # Create a new task revision
+
 TASK_REVISION=$(aws ecs describe-task-definition --task-definition $ECS_TASK --region $AWS_DEFAULT_REGION | jq '.taskDefinition.revision') #get latest revision
 SERVICE_ARN="arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_NUMBER:service/$ECS_SERVICE"
 ECS_SERVICE_EXISTS=$(aws ecs list-services --region $AWS_DEFAULT_REGION --cluster $AWS_ECS_CLUSTER_NAME | jq '.serviceArns' | jq 'contains(["'"$SERVICE_ARN"'"])')
+
+echo PHASE_6
 if [ "$ECS_SERVICE_EXISTS" == "true" ]; then
     echo "ECS Service already exists, Updating $ECS_SERVICE ..."
     aws ecs update-service --cluster $AWS_ECS_CLUSTER_NAME --service $ECS_SERVICE --task-definition "$ECS_TASK:$TASK_REVISION" --desired-count 1 --region $AWS_DEFAULT_REGION > /dev/null #update service with latest task revision
@@ -39,6 +44,8 @@ else
     echo "Creating ECS Service $ECS_SERVICE ..."
     aws ecs create-service --cluster $AWS_ECS_CLUSTER_NAME --service-name $ECS_SERVICE --task-definition "$ECS_TASK:$TASK_REVISION" --desired-count 1 --region $AWS_DEFAULT_REGION > /dev/null #create service
 fi
+
+echo PHASE_7
 if [ "$(aws ecs list-tasks --service-name $ECS_SERVICE --region $AWS_DEFAULT_REGION | jq '.taskArns' | jq 'length')" -gt "0" ]; then
     TEMP_ARN=$(aws ecs list-tasks --service-name $ECS_SERVICE --region $AWS_DEFAULT_REGION | jq '.taskArns[0]') # Get current running task ARN
     TASK_ARN="${TEMP_ARN%\"}" # strip double quotes
