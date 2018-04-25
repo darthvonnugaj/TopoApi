@@ -27,6 +27,13 @@ namespace topo_api_1.Controllers
         {
             return _context.Routes;
         }
+        
+        // GET: api/...
+        [HttpGet("/api/routes/limited/{limit}/{page}", Name = "Limited_List")]
+        public IEnumerable<Route> Limited(int limit, int page)
+        {
+            return _context.Routes.Skip((page - 1) * limit).Take(limit);
+        }
 
         // GET: api/Routes/5
         [HttpGet("{id}")]

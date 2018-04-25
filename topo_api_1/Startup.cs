@@ -43,7 +43,7 @@ namespace topo_api_1
             else
             {
                 services.AddDbContext<RouteContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(Configuration.GetConnectionString("AwsConnection")));
             }
             
             
