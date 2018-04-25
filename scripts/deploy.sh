@@ -14,7 +14,7 @@ export PATH=$PATH:$HOME/.local/bin # put aws in the path
 # replace environment variables in task-definition
 envsubst < task-definition.json > new-task-definition.json
 
-echo AWS_ECR_CREDENTIALS
+echo AWS_ECR_CREDENTIALS 
 export DOCKER_STRING=$(yes | aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
 echo $DOCKER_STRING
 
