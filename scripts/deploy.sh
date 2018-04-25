@@ -14,12 +14,18 @@ export PATH=$PATH:$HOME/.local/bin # put aws in the path
 # replace environment variables in task-definition
 envsubst < task-definition.json > new-task-definition.json
 
-echo AWS_ECR_CREDENTIALS 
-export DOCKER_STRING=$(yes | aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+echo PHASE_1
+export DOCKER_STRING=$(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
 echo $DOCKER_STRING
 
-eval $($DOCKER_STRING | sed 's|https://||') #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
+echo PHASE_2
+export DOCKER_STRING2=$($DOCKER_STRING | sed 's|https://||') #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
+echo $DOCKER_STRING2
 
+echo PHASE_2.1
+yes | eval $DOCKER_STRING2
+
+echo PHASE_3
 if [ $(aws ecr describe-repositories | jq --arg x $IMAGE_NAME '[.repositories[] | .repositoryName == $x] | any') == "true" ]; then
     echo "Found ECS Repository $IMAGE_NAME"
 else
@@ -27,6 +33,7 @@ else
     aws ecr create-repository --repository-name $IMAGE_NAME
 fi
 
+echo PHASE_4
 docker push $AWS_ECS_REPO_DOMAIN/$IMAGE_NAME:$IMAGE_VERSION
 
 aws ecs register-task-definition --cli-input-json file://new-task-definition.json --region $AWS_DEFAULT_REGION > /dev/null # Create a new task revision
