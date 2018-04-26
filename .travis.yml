@@ -18,9 +18,12 @@ jobs:
     script:
       - chmod +x ./deploy-envs.sh
       - chmod +x ./scripts/build.sh
-      - chmod +x ./scripts/deploy.sh
       - cd scripts && ./build.sh
   - stage: deploy
     if: branch = production
     script:
+      - chmod +x ./deploy-envs.sh
+      - chmod +x ./scripts/build.sh
+      - chmod +x ./scripts/deploy.sh
+      - cd scripts && ./build.sh    
       - ./deploy.sh
