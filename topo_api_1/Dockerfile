@@ -8,7 +8,7 @@ RUN dotnet restore
 # Copy everything else and build
 COPY . ./
 RUN dotnet build
-EXPOSE 80/tcp
+EXPOSE 22/tcp
 #EXPOSE 22 #SQL SERVER?
 
 ARG env=local

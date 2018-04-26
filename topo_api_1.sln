@@ -5,6 +5,18 @@ VisualStudioVersion = 15.0.27428.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "topo_api_1", "topo_api_1\topo_api_1.csproj", "{DE51D97D-9FBC-411C-96A3-20F853606640}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder1", "SolutionFolder1", "{2A359970-7735-4BDE-9E22-5A3F5EA97080}"
+ProjectSection(SolutionItems) = preProject
+	scripts\build.sh = scripts\build.sh
+	scripts\deploy.sh = scripts\deploy.sh
+	scripts\task-definition.json = scripts\task-definition.json
+	..\secrets.sh = ..\secrets.sh
+	deploy-envs.sh = deploy-envs.sh
+	.travis.yml = .travis.yml
+	.gitignore = .gitignore
+	topo_api_1\topo_api_1.csproj = topo_api_1\topo_api_1.csproj
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

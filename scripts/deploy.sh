@@ -1,6 +1,13 @@
 #!/bin/bash
 source ../deploy-envs.sh
 
+#provide environmental variables locally
+if [ -e ../../secrets.sh ]
+then
+    echo 'Using local secrets' 
+    source ../../secrets.sh
+fi
+
 export AWS_ECS_REPO_DOMAIN=$AWS_ACCOUNT_NUMBER.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
 export ECS_SERVICE=$IMAGE_NAME-service
 export ECS_TASK=$IMAGE_NAME-task
@@ -16,7 +23,7 @@ export PATH=$PATH:$HOME/.local/bin # put aws in the path
 envsubst < task-definition.json > new-task-definition.json
 
 echo PHASE_2
-yes | aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email
+eval $(yes | aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
 
 echo PHASE_3
 if [ $(aws ecr describe-repositories | jq --arg x $IMAGE_NAME '[.repositories[] | .repositoryName == $x] | any') == "true" ]; then

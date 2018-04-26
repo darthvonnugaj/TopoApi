@@ -28,8 +28,8 @@ namespace topo_api_1
         {
             string s_env = Environment.GetEnvironmentVariable("SERVER");
             if (s_env == null) s_env = "not set";
-            
             Console.WriteLine("Server environment: "+s_env);
+            
             if (s_env.Equals("local"))
             {
                 services.AddDbContext<RouteContext>(options =>

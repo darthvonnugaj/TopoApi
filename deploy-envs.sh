@@ -2,7 +2,7 @@
 
 # set environment variables used in deploy.sh and AWS task-definition.json:
 export IMAGE_NAME=topoapi
-export IMAGE_VERSION=v1
+export IMAGE_VERSION=latest
 
 export AWS_DEFAULT_REGION=eu-central-1
 export AWS_ECS_CLUSTER_NAME=default
