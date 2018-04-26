@@ -17,5 +17,5 @@ fi
 export AWS_ECS_REPO_DOMAIN=$AWS_ACCOUNT_NUMBER.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
 
 # Build process
-docker build -t $IMAGE_NAME --build-arg env=$S_ENV ../topo_api_1/
+docker build -t $IMAGE_NAME --build-arg env=$S_ENV --build-arg conn=$CONNECTION_STRING ../topo_api_1/
 docker tag $IMAGE_NAME $AWS_ECS_REPO_DOMAIN/$IMAGE_NAME:$IMAGE_VERSION

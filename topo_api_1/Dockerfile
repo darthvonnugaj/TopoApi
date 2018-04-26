@@ -11,9 +11,14 @@ RUN dotnet build
 EXPOSE 22/tcp
 #EXPOSE 22 #SQL SERVER?
 
-ARG env=local
+
 ENV ASPNETCORE_URLS http://*:5000
+
+ARG env=local
 ENV SERVER $env
+
+ARG conn
+ENV CONNECTION_STRING $conn
 
 RUN chmod 755 ./entrypoint.sh
 #CMD /bin/bash ./entrypoint.sh

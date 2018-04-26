@@ -14,11 +14,13 @@ addons:
 jobs:
   include:
   - stage: build
+    if: branch = master
     script:
       - chmod +x ./deploy-envs.sh
       - chmod +x ./scripts/build.sh
       - chmod +x ./scripts/deploy.sh
       - cd scripts && ./build.sh
   - stage: deploy
+    if: branch = production
     script:
-      - if [ "$TRAVIS_BRANCH" == "production" ]; then ./deploy.sh; fi
+      - ./deploy.sh

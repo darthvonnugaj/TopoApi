@@ -28,6 +28,10 @@ namespace topo_api_1
         {
             string s_env = Environment.GetEnvironmentVariable("SERVER");
             if (s_env == null) s_env = "not set";
+            
+            string conn = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+            if (conn == null) conn = Configuration.GetConnectionString("DefaultConnection");
+            
             Console.WriteLine("Server environment: "+s_env);
             
             if (s_env.Equals("local"))
@@ -38,12 +42,12 @@ namespace topo_api_1
             else if (s_env.Equals("aws"))
             {
                 services.AddDbContext<RouteContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("AwsConnection")));
+                    options.UseSqlServer(conn));
             }
             else
             {
                 services.AddDbContext<RouteContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("AwsConnection")));
+                    options.UseSqlServer(conn));
             }
             
             
