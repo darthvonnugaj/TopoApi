@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,5 +25,13 @@ namespace topo_api_1.Models
         public string Img { get; set; }
         public double Lat { get; set; }
         public double Lon { get; set; }
+        
+        [NotMapped]
+        public double? Distance { get; set; }
+
+        public Route()
+        {
+            Distance = null;
+        }
     }
 }
